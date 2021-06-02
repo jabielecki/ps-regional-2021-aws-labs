@@ -98,7 +98,7 @@ module "transit_gateways" {
 data "aws_ami" "amazon-linux-2" {
   most_recent = true
 
-  owners      = ["amazon"]
+  owners = ["amazon"]
 
   filter {
     name   = "name"
@@ -168,7 +168,7 @@ module "app1_transit_gateways" {
   vpcs                            = module.app1_vpc.vpc_id
   transit_gateways                = var.app1_transit_gateways
   transit_gateway_vpc_attachments = var.app1_transit_gateway_vpc_attachments
-  depends_on = [module.gwlb] // Depends on GWLB being created in security VPC
+  depends_on                      = [module.gwlb] # Depends on GWLB being created in security VPC
 }
 
 module "app1_gwlb" {
@@ -180,16 +180,16 @@ module "app1_gwlb" {
   gateway_load_balancers          = var.app1_gateway_load_balancers
   gateway_load_balancer_endpoints = var.app1_gateway_load_balancer_endpoints
   subnets_map                     = module.app1_vpc.subnet_ids
-  depends_on = [module.transit_gateways] // Depends on GWLB being created in security VPC
+  depends_on                      = [module.transit_gateways] # Depends on GWLB being created in security VPC
 }
 
 
 module "app1_ec2_cluster" {
-  source                 = "terraform-aws-modules/ec2-instance/aws"
-  version                = "~> 2.0"
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 2.0"
 
-  name                   = "${var.prefix_name_tag}app1-web"
-  instance_count         = 2
+  name                        = "${var.prefix_name_tag}app1-web"
+  instance_count              = 2
   associate_public_ip_address = false
 
   ami                    = data.aws_ami.amazon-linux-2.id
@@ -197,9 +197,9 @@ module "app1_ec2_cluster" {
   key_name               = var.ssh_key_name
   monitoring             = true
   vpc_security_group_ids = [module.app1_vpc.security_group_ids["web-server-sg"]]
-  subnet_ids              = [module.app1_vpc.subnet_ids["web1"], module.app1_vpc.subnet_ids["web2"]]
-  user_data_base64 = base64encode(local.web_user_data)
-  tags = var.global_tags
+  subnet_ids             = [module.app1_vpc.subnet_ids["web1"], module.app1_vpc.subnet_ids["web2"]]
+  user_data_base64       = base64encode(local.web_user_data)
+  tags                   = var.global_tags
 }
 
 
@@ -235,13 +235,13 @@ module "app1_nlb" {
 
   target_groups = [
     {
-      name     = "${var.prefix_name_tag}app1-ssh"
+      name             = "${var.prefix_name_tag}app1-ssh"
       backend_protocol = "TCP"
       backend_port     = 22
       target_type      = "instance"
     },
     {
-      name     = "${var.prefix_name_tag}app1-http"
+      name             = "${var.prefix_name_tag}app1-http"
       backend_protocol = "TCP"
       backend_port     = 80
       target_type      = "instance"
@@ -310,7 +310,7 @@ module "app2_transit_gateways" {
   vpcs                            = module.app2_vpc.vpc_id
   transit_gateways                = var.app2_transit_gateways
   transit_gateway_vpc_attachments = var.app2_transit_gateway_vpc_attachments
-  depends_on = [module.gwlb] // Depends on GWLB being created in security VPC
+  depends_on                      = [module.gwlb] # Depends on GWLB being created in security VPC
 }
 
 module "app2_gwlb" {
@@ -322,16 +322,16 @@ module "app2_gwlb" {
   gateway_load_balancers          = var.app2_gateway_load_balancers
   gateway_load_balancer_endpoints = var.app2_gateway_load_balancer_endpoints
   subnets_map                     = module.app2_vpc.subnet_ids
-  depends_on = [module.transit_gateways] // Depends on GWLB being created in security VPC
+  depends_on                      = [module.transit_gateways] # Depends on GWLB being created in security VPC
 }
 
 
 module "app2_ec2_cluster" {
-  source                 = "terraform-aws-modules/ec2-instance/aws"
-  version                = "~> 2.0"
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 2.0"
 
-  name                   = "${var.prefix_name_tag}app2-web"
-  instance_count         = 2
+  name                        = "${var.prefix_name_tag}app2-web"
+  instance_count              = 2
   associate_public_ip_address = false
 
   ami                    = data.aws_ami.amazon-linux-2.id
@@ -339,9 +339,9 @@ module "app2_ec2_cluster" {
   key_name               = var.ssh_key_name
   monitoring             = true
   vpc_security_group_ids = [module.app2_vpc.security_group_ids["web-server-sg"]]
-  subnet_ids              = [module.app2_vpc.subnet_ids["web1"], module.app2_vpc.subnet_ids["web2"]]
-  user_data_base64 = base64encode(local.web_user_data)
-  tags = var.global_tags
+  subnet_ids             = [module.app2_vpc.subnet_ids["web1"], module.app2_vpc.subnet_ids["web2"]]
+  user_data_base64       = base64encode(local.web_user_data)
+  tags                   = var.global_tags
 }
 
 
@@ -377,13 +377,13 @@ module "app2_nlb" {
 
   target_groups = [
     {
-      name     = "${var.prefix_name_tag}app2-ssh"
+      name             = "${var.prefix_name_tag}app2-ssh"
       backend_protocol = "TCP"
       backend_port     = 22
       target_type      = "instance"
     },
     {
-      name     = "${var.prefix_name_tag}app2-http"
+      name             = "${var.prefix_name_tag}app2-http"
       backend_protocol = "TCP"
       backend_port     = 80
       target_type      = "instance"

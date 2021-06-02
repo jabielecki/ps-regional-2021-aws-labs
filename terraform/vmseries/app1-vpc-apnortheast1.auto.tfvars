@@ -1,4 +1,5 @@
-### VPC ###
+### Application VPC ###
+
 app1_vpc = {
   app1_vpc = {
     name                 = "app1-spoke-vpc"
@@ -12,21 +13,21 @@ app1_vpc = {
 
 app1_vpc_route_tables = {
   igw-edge = { name = "app1-igw-edge", igw_association = "app1_vpc" }
-  alb1      = { name = "app1-alb1" }
-  alb2      = { name = "app1-alb2" }
-  gwlbe1    = { name = "app1-gwlbe1" }
-  gwlbe2    = { name = "app1-gwlbe2" }
-  web1      = { name = "app1-web1" }
-  web2      = { name = "app1-web2" }
+  alb1     = { name = "app1-alb1" }
+  alb2     = { name = "app1-alb2" }
+  gwlbe1   = { name = "app1-gwlbe1" }
+  gwlbe2   = { name = "app1-gwlbe2" }
+  web1     = { name = "app1-web1" }
+  web2     = { name = "app1-web2" }
 }
 
 app1_vpc_subnets = {
-  alb1      = { name = "app1-alb1", cidr = "10.200.0.16/28", az = "ap-northeast-1a", rt = "alb1" }
-  alb2      = { name = "app1-alb2", cidr = "10.200.1.16/28", az = "ap-northeast-1c", rt = "alb2" }
-  gwlbe1    = { name = "app1-gwlbe1", cidr = "10.200.0.32/28", az = "ap-northeast-1a", rt = "gwlbe1" }
-  gwlbe2    = { name = "app1-gwlbe2", cidr = "10.200.1.32/28", az = "ap-northeast-1c", rt = "gwlbe2" }
-  web1      = { name = "app1-web1", cidr = "10.200.0.48/28", az = "ap-northeast-1a", rt = "web1" }
-  web2      = { name = "app1-web2", cidr = "10.200.1.48/28", az = "ap-northeast-1c", rt = "web2" }
+  alb1   = { name = "app1-alb1", cidr = "10.200.0.16/28", az = "ap-northeast-1a", rt = "alb1" }
+  alb2   = { name = "app1-alb2", cidr = "10.200.1.16/28", az = "ap-northeast-1c", rt = "alb2" }
+  gwlbe1 = { name = "app1-gwlbe1", cidr = "10.200.0.32/28", az = "ap-northeast-1a", rt = "gwlbe1" }
+  gwlbe2 = { name = "app1-gwlbe2", cidr = "10.200.1.32/28", az = "ap-northeast-1c", rt = "gwlbe2" }
+  web1   = { name = "app1-web1", cidr = "10.200.0.48/28", az = "ap-northeast-1a", rt = "web1" }
+  web2   = { name = "app1-web2", cidr = "10.200.1.48/28", az = "ap-northeast-1c", rt = "web2" }
 }
 
 app1_vpc_endpoints = {
@@ -58,15 +59,13 @@ app1_vpc_security_groups = {
       }
     }
   }
-
 }
-
 
 ### GWLB ###
 
-app1_gateway_load_balancers = { // Pull back info from existing GWLB endpoint service in security VPC
+app1_gateway_load_balancers = { # Pull back info from existing GWLB endpoint service in security VPC
   security-gwlb = {
-    name           = "ps-lab-security-gwlb"
+    name     = "ps-lab-security-gwlb"
     existing = true
   }
 }
@@ -84,14 +83,13 @@ app1_gateway_load_balancer_endpoints = {
   }
 }
 
-
 app1_transit_gateways = {
   gwlb = {
     name     = "ps-lab-tgw"
     existing = true
     route_tables = {
       security-in = { name = "ps-lab-from-security-vpc", existing = true }
-      spoke-in = { name = "ps-lab-from-spoke-vpcs", existing = true }
+      spoke-in    = { name = "ps-lab-from-spoke-vpcs", existing = true }
     }
   }
 }
@@ -108,55 +106,55 @@ app1_transit_gateway_vpc_attachments = {
   }
 }
 
+### Application VPC ROUTES ###
 
-### VPC_ROUTES
-# app1_vpc_routes = {
-#   igw-edge-alb1-to-endpoint1 = {
-#     route_table   = "igw-edge"
-#     prefix        = "10.200.0.16/28"
-#     next_hop_type = "vpc_endpoint"
-#     next_hop_name = "app1-inbound1"
-#   }
-#   igw-edge-alb2-to-endpoint2 = {
-#     route_table   = "igw-edge"
-#     prefix        = "10.200.1.16/28"
-#     next_hop_type = "vpc_endpoint"
-#     next_hop_name = "app1-inbound2"
-#   }
-#   web1-default-to-tgw = {
-#     route_table   = "web1"
-#     prefix        = "0.0.0.0/0"
-#     next_hop_type = "transit_gateway"
-#     next_hop_name = "gwlb"
-#   }
-#   web2-default-to-tgw = {
-#     route_table   = "web2"
-#     prefix        = "0.0.0.0/0"
-#     next_hop_type = "transit_gateway"
-#     next_hop_name = "gwlb"
-#   }
-#   gwlbe1-default-to-igw = {
-#     route_table   = "gwlbe1"
-#     prefix        = "0.0.0.0/0"
-#     next_hop_type = "internet_gateway"
-#     next_hop_name = "app1_vpc"
-#   }
-#   gwlbe2-default-to-igw = {
-#     route_table   = "gwlbe2"
-#     prefix        = "0.0.0.0/0"
-#     next_hop_type = "internet_gateway"
-#     next_hop_name = "app1_vpc"
-#   }
-#   alb1-to-endpoint1 = {
-#     route_table   = "alb1"
-#     prefix        = "0.0.0.0/0"
-#     next_hop_type = "vpc_endpoint"
-#     next_hop_name = "app1-inbound1"
-#   }
-#   alb2-to-endpoint2 = {
-#     route_table   = "alb2"
-#     prefix        = "0.0.0.0/0"
-#     next_hop_type = "vpc_endpoint"
-#     next_hop_name = "app1-inbound2"
-#   }
-# }
+app1_vpc_routes = {
+  igw-edge-alb1-to-endpoint1 = {
+    route_table   = "igw-edge"
+    prefix        = "10.200.0.16/28"
+    next_hop_type = "vpc_endpoint"
+    next_hop_name = "app1-inbound1"
+  }
+  igw-edge-alb2-to-endpoint2 = {
+    route_table   = "igw-edge"
+    prefix        = "10.200.1.16/28"
+    next_hop_type = "vpc_endpoint"
+    next_hop_name = "app1-inbound2"
+  }
+  web1-default-to-tgw = {
+    route_table   = "web1"
+    prefix        = "0.0.0.0/0"
+    next_hop_type = "transit_gateway"
+    next_hop_name = "gwlb"
+  }
+  web2-default-to-tgw = {
+    route_table   = "web2"
+    prefix        = "0.0.0.0/0"
+    next_hop_type = "transit_gateway"
+    next_hop_name = "gwlb"
+  }
+  gwlbe1-default-to-igw = {
+    route_table   = "gwlbe1"
+    prefix        = "0.0.0.0/0"
+    next_hop_type = "internet_gateway"
+    next_hop_name = "app1_vpc"
+  }
+  gwlbe2-default-to-igw = {
+    route_table   = "gwlbe2"
+    prefix        = "0.0.0.0/0"
+    next_hop_type = "internet_gateway"
+    next_hop_name = "app1_vpc"
+  }
+  alb1-to-endpoint1 = {
+    route_table   = "alb1"
+    prefix        = "0.0.0.0/0"
+    next_hop_type = "vpc_endpoint"
+    next_hop_name = "app1-inbound1"
+  }
+  alb2-to-endpoint2 = {
+    route_table   = "alb2"
+    prefix        = "0.0.0.0/0"
+    next_hop_type = "vpc_endpoint"
+    next_hop_name = "app1-inbound2"
+  }
+}

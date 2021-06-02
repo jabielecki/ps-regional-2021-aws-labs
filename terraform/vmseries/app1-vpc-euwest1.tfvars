@@ -12,21 +12,21 @@ app1_vpc = {
 
 app1_vpc_route_tables = {
   igw-edge = { name = "app1-igw-edge", igw_association = "app1_vpc" }
-  alb1      = { name = "app1-alb1" }
-  alb2      = { name = "app1-alb2" }
-  gwlbe1    = { name = "app1-gwlbe1" }
-  gwlbe2    = { name = "app1-gwlbe2" }
-  web1      = { name = "app1-web1" }
-  web2      = { name = "app1-web2" }
+  alb1     = { name = "app1-alb1" }
+  alb2     = { name = "app1-alb2" }
+  gwlbe1   = { name = "app1-gwlbe1" }
+  gwlbe2   = { name = "app1-gwlbe2" }
+  web1     = { name = "app1-web1" }
+  web2     = { name = "app1-web2" }
 }
 
 app1_vpc_subnets = {
-  alb1      = { name = "app1-alb1", cidr = "10.200.0.16/28", az = "eu-west-1a", rt = "alb1" }
-  alb2      = { name = "app1-alb2", cidr = "10.200.1.16/28", az = "eu-west-1b", rt = "alb2" }
-  gwlbe1    = { name = "app1-gwlbe1", cidr = "10.200.0.32/28", az = "eu-west-1a", rt = "gwlbe1" }
-  gwlbe2    = { name = "app1-gwlbe2", cidr = "10.200.1.32/28", az = "eu-west-1b", rt = "gwlbe2" }
-  web1      = { name = "app1-web1", cidr = "10.200.0.48/28", az = "eu-west-1a", rt = "web1" }
-  web2      = { name = "app1-web2", cidr = "10.200.1.48/28", az = "eu-west-1b", rt = "web2" }
+  alb1   = { name = "app1-alb1", cidr = "10.200.0.16/28", az = "eu-west-1a", rt = "alb1" }
+  alb2   = { name = "app1-alb2", cidr = "10.200.1.16/28", az = "eu-west-1b", rt = "alb2" }
+  gwlbe1 = { name = "app1-gwlbe1", cidr = "10.200.0.32/28", az = "eu-west-1a", rt = "gwlbe1" }
+  gwlbe2 = { name = "app1-gwlbe2", cidr = "10.200.1.32/28", az = "eu-west-1b", rt = "gwlbe2" }
+  web1   = { name = "app1-web1", cidr = "10.200.0.48/28", az = "eu-west-1a", rt = "web1" }
+  web2   = { name = "app1-web2", cidr = "10.200.1.48/28", az = "eu-west-1b", rt = "web2" }
 }
 
 app1_vpc_endpoints = {
@@ -64,9 +64,9 @@ app1_vpc_security_groups = {
 
 ### GWLB ###
 
-app1_gateway_load_balancers = { // Pull back info from existing GWLB endpoint service in security VPC
+app1_gateway_load_balancers = { # Pull back info from existing GWLB endpoint service in security VPC
   security-gwlb = {
-    name           = "ps-lab-security-gwlb"
+    name     = "ps-lab-security-gwlb"
     existing = true
   }
 }
@@ -91,7 +91,7 @@ app1_transit_gateways = {
     existing = true
     route_tables = {
       security-in = { name = "ps-lab-from-security-vpc", existing = true }
-      spoke-in = { name = "ps-lab-from-spoke-vpcs", existing = true }
+      spoke-in    = { name = "ps-lab-from-spoke-vpcs", existing = true }
     }
   }
 }
