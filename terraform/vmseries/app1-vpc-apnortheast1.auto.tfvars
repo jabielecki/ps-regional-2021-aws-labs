@@ -63,25 +63,9 @@ app1_vpc_security_groups = {
 
 ### GWLB ###
 
-app1_gateway_load_balancers = { # Pull back info from existing GWLB endpoint service in security VPC
-  security-gwlb = {
-    name     = "ps-lab-security-gwlb"
-    existing = true
-  }
-}
-
-app1_gateway_load_balancer_endpoints = {
-  app1-inbound1 = {
-    name                  = "app1-inbound-gwlb-endpoint1"
-    gateway_load_balancer = "security-gwlb"
-    subnet_names          = ["gwlbe1"]
-  }
-  app1-inbound2 = {
-    name                  = "app1-inbound-gwlb-endpoint2"
-    gateway_load_balancer = "security-gwlb"
-    subnet_names          = ["gwlbe2"]
-  }
-}
+# Pull back info from existing GWLB endpoint service in security VPC
+existing_gateway_load_balancer_name      = "ps-lab-security-gwlb"
+gateway_load_balancer_endpoint_app1_name = "app1-gwlb-endpoint"
 
 app1_transit_gateways = {
   gwlb = {
@@ -109,18 +93,6 @@ app1_transit_gateway_vpc_attachments = {
 ### Application VPC ROUTES ###
 
 app1_vpc_routes = {
-  igw-edge-alb1-to-endpoint1 = {
-    route_table   = "igw-edge"
-    prefix        = "10.200.0.16/28"
-    next_hop_type = "vpc_endpoint"
-    next_hop_name = "app1-inbound1"
-  }
-  igw-edge-alb2-to-endpoint2 = {
-    route_table   = "igw-edge"
-    prefix        = "10.200.1.16/28"
-    next_hop_type = "vpc_endpoint"
-    next_hop_name = "app1-inbound2"
-  }
   web1-default-to-tgw = {
     route_table   = "web1"
     prefix        = "0.0.0.0/0"
