@@ -128,12 +128,14 @@ module "app1_gwlbe_inbound" {
   subnet_sets           = [module.subnet_set["gwlbe"]]
   act_as_next_hop_for = {
     "from-igw-to-vpc-example" = {
-      from_route_table_id = module.vpc.igw_edge_route_table_id
-      to_entire_vpc       = true
+      is_from_route_table_id = true
+      from_route_table_id    = module.vpc.igw_edge_route_table_id
+      to_entire_vpc          = true
     }
     "from-igw-to-alb" = {
-      from_route_table_id = module.vpc.igw_edge_route_table_id
-      to_subnet_set       = module.subnet_set["alb"]
+      is_from_route_table_id = true
+      from_route_table_id    = module.vpc.igw_edge_route_table_id
+      to_subnet_set          = module.subnet_set["alb"]
     }
     # The routes above are special in that they are on the "edge", that is they are part of an IGW route table.
     # In such IGW routes only the following destinations are allowed by AWS:
@@ -143,10 +145,9 @@ module "app1_gwlbe_inbound" {
     # The first route above (to_entire_vpc) is only here to illustrate the point. It should be removed 
     # in a real deployment.
 
-    # Aside: a VPGW has the same rules, except it only supports individual NICs and no GWLBE (so, no balancing).
+    # Aside: a VGW has the same rules, except it only supports individual NICs and no GWLBE (so, no balancing).
     # Looks like a temporary AWS limitation.
 
-    # TODO: next hop "to_subnet_set" should handle subnets' secondary cidr blocks.
     # TODO: next hop "to_entire_vpc" should handle vpc's secondary cidr blocks.
   }
 }

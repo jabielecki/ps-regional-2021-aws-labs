@@ -172,7 +172,7 @@ nat_gateway_name = "natgw"
 ### GWLB ###
 
 gateway_load_balancer_name                   = "security-gwlb"
-gateway_load_balancer_endpoint_eastwest_name = "east-west-gwlb-endpoint"
+gateway_load_balancer_endpoint_eastwest_name = "eastwest-gwlb-endpoint"
 gateway_load_balancer_endpoint_outbound_name = "outbound-gwlb-endpoint"
 
 ### TGW ###
