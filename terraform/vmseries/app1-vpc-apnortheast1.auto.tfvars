@@ -78,7 +78,7 @@ app1_transit_gateways = {
   }
 }
 
-app1_transit_gateway_vpc_attachments = {
+app1_transit_gateway_attachments = {
   prod = {
     name = "ps-lab-app1-vpc"
     vpc  = "vpc_id"

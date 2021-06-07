@@ -177,6 +177,6 @@ gateway_load_balancer_endpoint_outbound_name = "outbound-gwlb-endpoint"
 
 ### TGW ###
 
-transit_gateway_name                = "tgw"
-transit_gateway_asn                 = "65200"
-transit_gateway_vpc_attachment_name = "security-vpc"
+transit_gateway_name            = "tgw"
+transit_gateway_asn             = "65200"
+transit_gateway_attachment_name = "security-vpc"

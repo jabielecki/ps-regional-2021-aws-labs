@@ -82,14 +82,14 @@ module "app1_vpc_routes_additional" {
 }
 
 module "app1_transit_gateways" {
-  source                          = "../modules/transit_gateway"
-  global_tags                     = var.global_tags
-  prefix_name_tag                 = var.prefix_name_tag
-  subnets                         = module.app1_vpc.subnet_ids
-  vpcs                            = module.app1_vpc.vpc_id
-  transit_gateways                = var.app1_transit_gateways
-  transit_gateway_vpc_attachments = var.app1_transit_gateway_vpc_attachments
-  depends_on                      = [module.gwlb] # Depends on GWLB being created in security VPC
+  source                      = "../modules/transit_gateway"
+  global_tags                 = var.global_tags
+  prefix_name_tag             = var.prefix_name_tag
+  subnets                     = module.app1_vpc.subnet_ids
+  vpcs                        = module.app1_vpc.vpc_id
+  transit_gateways            = var.app1_transit_gateways
+  transit_gateway_attachments = var.app1_transit_gateway_attachments
+  depends_on                  = [module.gwlb] # Depends on GWLB being created in security VPC
 }
 
 module "app1_gwlb" {
@@ -223,14 +223,14 @@ module "app2_vpc_routes_additional" {
 }
 
 module "app2_transit_gateways" {
-  source                          = "../modules/transit_gateway"
-  global_tags                     = var.global_tags
-  prefix_name_tag                 = var.prefix_name_tag
-  subnets                         = module.app2_vpc.subnet_ids
-  vpcs                            = module.app2_vpc.vpc_id
-  transit_gateways                = var.app2_transit_gateways
-  transit_gateway_vpc_attachments = var.app2_transit_gateway_vpc_attachments
-  depends_on                      = [module.gwlb] # Depends on GWLB being created in security VPC
+  source                      = "../modules/transit_gateway"
+  global_tags                 = var.global_tags
+  prefix_name_tag             = var.prefix_name_tag
+  subnets                     = module.app2_vpc.subnet_ids
+  vpcs                        = module.app2_vpc.vpc_id
+  transit_gateways            = var.app2_transit_gateways
+  transit_gateway_attachments = var.app2_transit_gateway_attachments
+  depends_on                  = [module.gwlb] # Depends on GWLB being created in security VPC
 }
 
 module "app2_gwlb" {

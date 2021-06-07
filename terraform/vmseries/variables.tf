@@ -30,7 +30,7 @@ variable gateway_load_balancers {}
 variable gateway_load_balancer_endpoints {}
 variable gateway_load_balancer_subnets {}
 variable transit_gateways { default = {} }
-variable transit_gateway_vpc_attachments { default = {} }
+variable transit_gateway_attachments { default = {} }
 variable transit_gateway_peerings { default = {} }
 
 ### APP1 Variables
@@ -46,7 +46,7 @@ variable app1_vpc_routes_additional { default = {} }
 variable app1_gateway_load_balancers { default = {} }
 variable app1_gateway_load_balancer_endpoints { default = {} }
 variable app1_transit_gateways { default = {} }
-variable app1_transit_gateway_vpc_attachments { default = {} }
+variable app1_transit_gateway_attachments { default = {} }
 variable app1_transit_gateway_peerings { default = {} }
 
 ### APP2 Variables
@@ -62,5 +62,5 @@ variable app2_vpc_routes_additional { default = {} }
 variable app2_gateway_load_balancers { default = {} }
 variable app2_gateway_load_balancer_endpoints { default = {} }
 variable app2_transit_gateways { default = {} }
-variable app2_transit_gateway_vpc_attachments { default = {} }
+variable app2_transit_gateway_attachments { default = {} }
 variable app2_transit_gateway_peerings { default = {} }

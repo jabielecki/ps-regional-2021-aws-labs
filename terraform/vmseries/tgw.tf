@@ -58,8 +58,8 @@ module transit_gateway {
 #   - rename `act_as_next_hop_for` to `traffic_from`? 
 #   - search everywhere for secondary modules/vpc_routes, what is the use case for vpc_routes_additional
 
-module transit_gateway_vpc_attachment {
-  name                                    = var.transit_gateway_vpc_attachment_name
+module transit_gateway_attachment {
+  name                                    = var.transit_gateway_attachment_name
   vpc                                     = module.vpc
   subnet_sets                             = [module.subnet_sets["tgw-attach"]]
   transit_gateway                         = module.transit_gateway
